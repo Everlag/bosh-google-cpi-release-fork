@@ -11,6 +11,8 @@ check_param CANDIDATE_BUILD_NUMBER
 
 export TASK_DIR=$PWD
 
+echo "this is running my version!"
+
 # This is copied from https://github.com/concourse/concourse/blob/3c070db8231294e4fd51b5e5c95700c7c8519a27/jobs/baggageclaim/templates/baggageclaim_ctl.erb#L23-L54
 # helps the /dev/mapper/control issue and lets us actually do scary things with the /dev mounts
 # This allows us to create device maps from partition tables in image_create/apply.sh
