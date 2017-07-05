@@ -216,7 +216,7 @@ resources:
     source:
       # uri: https://github.com/cloudfoundry-incubator/bosh-google-cpi-release.git
       uri: https://github.com/Everlag/bosh-google-cpi-release-fork.git
-      branch: master
+      branch: develop
       ignore_paths:
         - .final_builds/**/*.yml
         - releases/**/*.yml
