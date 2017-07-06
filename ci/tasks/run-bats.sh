@@ -222,6 +222,9 @@ pushd bats
 
   # BOSH CLI executable path
   export BAT_BOSH_CLI=bosh2
+  wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.26-linux-amd64
+  chmod +x bosh-cli-*
+  mv bosh-cli-* /usr/local/bin/bosh
 
   echo "Running BOSH Acceptance Tests..."
   bundle exec rspec --tag ~multiple_manual_networks --tag ~raw_ephemeral_storage --tag ~changing_static_ip spec
