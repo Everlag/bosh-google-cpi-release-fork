@@ -226,6 +226,8 @@ pushd bats
   chmod +x bosh-cli-*
   mv bosh-cli-* /usr/local/bin/bosh
 
+  export BAT_PRIVATE_KEY=${private_key}
+
   echo "Running BOSH Acceptance Tests..."
   bundle exec rspec --tag ~multiple_manual_networks --tag ~raw_ephemeral_storage --tag ~changing_static_ip spec
 popd
