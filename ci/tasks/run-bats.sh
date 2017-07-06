@@ -222,7 +222,7 @@ pushd bats
 
   # BOSH CLI executable path
   export BAT_BOSH_CLI=bosh2
-  wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.26-linux-amd64
+  wget -O bosh2 https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.26-linux-amd64
   chmod +x bosh-cli-*
   mv bosh-cli-* /usr/local/bin/bosh
 
