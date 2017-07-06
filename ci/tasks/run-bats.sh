@@ -220,6 +220,9 @@ pushd bats
   # ./write_gemfile
   bundle install
 
+  # BOSH CLI executable path
+  export BAT_BOSH_CLI=bosh2
+
   echo "Running BOSH Acceptance Tests..."
   bundle exec rspec --tag ~multiple_manual_networks --tag ~raw_ephemeral_storage --tag ~changing_static_ip spec
 popd
