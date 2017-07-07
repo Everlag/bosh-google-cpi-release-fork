@@ -173,7 +173,12 @@ jobs:
       blobstore:
         address: ${google_address_static_director}
         port: 25250
-        provider: dav
+        # provider: dav
+        provider: gcs
+        bucket_name: bosh-gcs-blobstore-test
+        credentials_source: static
+        json_key: |
+          ${google_json_key_data}
         director:
           user: director
           password: director-password
