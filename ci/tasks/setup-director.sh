@@ -33,6 +33,11 @@ cp ./bosh-cpi-release/*.tgz ${deployment_dir}/${cpi_release_name}.tgz
 cp ./bosh-release/*.tgz ${deployment_dir}/bosh-release.tgz
 cp ./stemcell/*.tgz ${deployment_dir}/stemcell.tgz
 
+# Overwrite with our custom bosh release
+# TODO: REMOVE when we are PRing
+gsutil cp gs://bosh-gcs-testingboshrelease/bosh-devrelease.tgz \
+  ${deployment_dir}/bosh-release.tgz
+
 echo "Creating google json key..."
 echo "${google_json_key_data}" > ${google_json_key}
 mkdir -p $HOME/.config/gcloud/
