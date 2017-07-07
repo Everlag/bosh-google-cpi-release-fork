@@ -178,7 +178,7 @@ jobs:
         bucket_name: bosh-gcs-blobstore-test
         credentials_source: static
         json_key: |
-          ${google_json_key_data}
+          $(echo $google_json_key_data | tr -d '\n')
         director:
           user: director
           password: director-password
