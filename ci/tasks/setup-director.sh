@@ -298,6 +298,9 @@ pushd ${deployment_dir}
   echo "Using bosh-init version..."
   ../bosh-init/bosh-init* version
 
+  echo "manifest file is"
+  cat ${manifest_filename}
+
   echo "Deploying BOSH Director..."
   ../bosh-init/bosh-init* deploy ${manifest_filename}
 
