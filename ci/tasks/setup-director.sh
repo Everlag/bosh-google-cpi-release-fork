@@ -72,7 +72,8 @@ resource_pools:
   - name: vms
     network: private
     stemcell:
-      url: file://stemcell.tgz
+      # url: file://stemcell.tgz
+      url: https://s3.amazonaws.com/bosh-core-stemcells/google/bosh-stemcell-3312.15-google-kvm-ubuntu-trusty-go_agent.tgz
     cloud_properties:
       zone: ${google_zone}
       machine_type: n1-standard-2
