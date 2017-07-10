@@ -74,6 +74,7 @@ resource_pools:
     stemcell:
       # url: file://stemcell.tgz
       url: https://s3.amazonaws.com/bosh-core-stemcells/google/bosh-stemcell-3312.15-google-kvm-ubuntu-trusty-go_agent.tgz
+      sha1: 3e00695743f1be7119f032ce5264e335e95732bf
     cloud_properties:
       zone: ${google_zone}
       machine_type: n1-standard-2
