@@ -177,7 +177,7 @@ jobs:
         port: 25250
         # provider: dav
         provider: gcs
-        bucket_name: bosh-gcs-blobstore-test
+        bucket_name: bosh-gcs-blobstore-test-director_blobs
         credentials_source: static
         json_key: |
           $(echo $google_json_key_data | tr -d '\n')
