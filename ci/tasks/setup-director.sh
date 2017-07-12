@@ -192,6 +192,8 @@ jobs:
         address: 127.0.0.1
         name: micro-google
         db: *db
+        debug:
+          keep_unreachable_vms: true
         cpi_job: google_cpi
         ssl:
           key: |
