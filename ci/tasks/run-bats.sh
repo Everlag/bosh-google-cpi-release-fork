@@ -193,7 +193,7 @@ properties:
   uuid: $(bosh status --uuid)
   stemcell:
     name: ${stemcell_name}
-    version: latest
+    version: 3312.15
   instances: 1
   vip: ${bats_ip}
   zone: ${google_zone}
