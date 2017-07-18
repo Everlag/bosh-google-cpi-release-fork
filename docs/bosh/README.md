@@ -169,7 +169,6 @@ Now you have the infrastructure ready to deploy a BOSH director.
    ```
    export service_account=bosh-user
    export base_ip=10.0.0.0
-   export project_id=$(gcloud config list 2>/dev/null | grep project | sed -e 's/project = //g')
    export service_account_email=${service_account}@${project_id}.iam.gserviceaccount.com
    gcloud iam service-accounts create ${service_account}
    ```
@@ -246,8 +245,8 @@ Now you have the infrastructure ready to deploy a BOSH director.
      - name: vms
        network: private
        stemcell:
-         url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3312.15
-         sha1: 3ac3ee83750f75bd74e8d3e3ad97808db23c30ba
+         url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3421.9-google-kvm-ubuntu-trusty-go_agent.tgz
+         sha1: 408f78a2091d108bb5418964026e73c822def32d
        cloud_properties:
          zone: <%= ENV['zone'] %>
          machine_type: n1-standard-1
@@ -379,12 +378,6 @@ Now you have the infrastructure ready to deploy a BOSH director.
        name: google_cpi
        release: bosh-google-cpi
 
-     ssh_tunnel:
-       host: <%= ENV['base_ip'].split('.').tap{|i| i[-1] = i[-1].to_i + 6 }.join('.') %>
-       port: 22
-       user: bosh
-       private_key: <%= ENV['ssh_key_path'] %>
-
      mbus: https://mbus:mbus-password@<%= ENV['base_ip'].split('.').tap{|i| i[-1] = i[-1].to_i + 6 }.join('.') %>:6868
 
      properties:
@@ -437,7 +430,6 @@ From your `bosh-bastion` instance, delete your BOSH director and other resources
           sshKeys=<( gcloud compute project-info describe --format=json | jq -r '.commonInstanceMetadata.items[] | select(.key ==  "sshKeys") | .value' | sed -e "s|$boshkey||" | grep -v ^$ )
 
    # Delete IAM service account
-   export project_id=$(gcloud config list 2>/dev/null | grep project | sed -e 's/project = //g')
    gcloud iam service-accounts delete bosh-user@${project_id}.iam.gserviceaccount.com
    ```
 
