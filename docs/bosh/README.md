@@ -207,11 +207,17 @@ Now you have the infrastructure ready to deploy a BOSH director.
             sshKeys=<( gcloud compute project-info describe --format=json | jq -r '.commonInstanceMetadata.items[] | select(.key ==  "sshKeys") | .value' & echo "bosh:$(cat ~/.ssh/bosh.pub)" )
    ```
 
-1. Confirm that `bosh-init` is installed by querying its version:
+1. Install [bosh-cli V2](https://bosh.io/docs/cli-v2.html#install)
 
-   ```
-   bosh-init -v
-   ```
+1. Confirm that `bosh` is installed by querying its version:
+
+  ```
+  bosh -v # == 2.x.y
+  ```
+
+  This is using the updated bosh-cli V2. When viewing docs written against
+  the V1 CLI or bosh-init, use [this reference](https://bosh.io/docs/cli-v2-diff.html)
+  to translate between commands.
 
 1. Create and `cd` to a directory:
 
@@ -235,8 +241,8 @@ Now you have the infrastructure ready to deploy a BOSH director.
 
    releases:
      - name: bosh
-       url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260.3
-       sha1: 22c79db2a785efa9cbc32c62b8094500e952e170
+       url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=262.3
+       sha1: 31d2912d4320ce6079c190f2218c6053fd1e920f
      - name: bosh-google-cpi
        url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.9.0
        sha1: 3fbda22fde33878b54dec77f4182f8044be72687
@@ -285,7 +291,7 @@ Now you have the infrastructure ready to deploy a BOSH director.
        templates:
          - name: nats
            release: bosh
-         - name: postgres
+         - name: postgres-9.4
            release: bosh
          - name: powerdns
            release: bosh
@@ -344,6 +350,56 @@ Now you have the infrastructure ready to deploy a BOSH director.
            name: micro-google
            db: *db
            cpi_job: google_cpi
+           ssl:
+            key: |
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEpAIBAAKCAQEArKtH+JNmEv4osTZwhyHBLauJaQjmNAS5vYDCep6F9AUpW3kL
+              jcDYGk+BwyFrpLa7ECkINbYB+5iBEkbBRK0sRMIz5rzUWU7Qv/HA609rF/ynbSUS
+              zk1uv9fgTC2BVnb2f7L03H1wqmtghp3bJvJ/LnMqe3x+OVEpkr1A5xqXsyshDSU6
+              tgfM+4tNyBBQudXCv3JyyKoCJ/cQpLCOh9nQ0yO4r1fqNPbfuYSf3iGRfuFg4Vgo
+              vLKOqRhWxNykGxcB14/uG1jxN1vX+Yg1aZvU075Z00M6NDc0gaYadDBjxNGkjYKz
+              icHI0/EoT6qJnR+tGBzT0gq24rcyz2LhLtP6fwIDAQABAoIBAFwbwnjHqFvZWLuv
+              3rc3OmWya8qsBKEbJDoCxbvDdJGHb1hsac1kYeMnJoGBAnsLPx6PxOFiBgzAfZnS
+              RKbt+f9z2VvsvxolARZjUBY2d1qEXIvMiwuiIsIT1oLMg4IsU7IrNJOqFr/SJ9un
+              uZA9K7sLlE3rSyooMZUlf8nIVcQtDVIP4sK57PEZkVcscjlV4MRO5q0cRpOd+IFC
+              RDzRMNlZXxLQadbZiGoLmEMp56S6Fkr597k4lh+ijV9xuqcC/2R7yZ/UKOxh+Z6v
+              eQ+69oype6EeBtMhrVuo8t11Fh8p5eomNKEW940e2aDvuVInKOTaw6RirKZL7yY/
+              tMKqHIECgYEA0BO+h1EVfWYqvA9qVp7jmFke9uW/+FUIpEqh061lx38UHLhpVmvW
+              tadcPPGYsCUH9oRcDEqtM56+2OSOSf4mvydZzzMS7q/OS9TGobeUjzH61MrsGp7D
+              fU2zx/3yJo3D6pR6eJWitXSFA//tCZbkLoiwTgkHtKT60xwKILDsGtMCgYEA1G/f
+              db9rk5L8fp5NkVHV+P/ttNtG69TFy9hHoW+PtDD0Xal9xjq/oLr1o19WidczUMjj
+              uLd++Z5DIrWMX8o9MHkuKuPWaDj5aP1wrZgbJMVDhHx+qoeuhxGSYHl3J2RHN06W
+              03IacWydavZG20e5Avunvp1/i31ozA9T3h3XPiUCgYEAqJZGucZlffuIRmTLCLGl
+              v6r9npdZqa/j15EseqA0JaX9uqNjnYS0KuwVnL82sgje4cot9juPB5LoGD1eV+8W
+              n6wXZPyBq2g/4krcQOzH7hlVnJFpKMxXoa+SKUjEqJ4WDXsNm6PJd/GXUD1MZYef
+              C2DuT9ubJa7CFsfSINiYA8cCgYBSeEPF0FQQ7ET9WrM+MQjiK2i6h03XC7jl08ar
+              E0Y0a7TSD5R2OiReX3YwwDg2NscDG5ncAdBXU2s4tEYUgcyTXtffaqe3ujaI3aq6
+              mYwgEDyP2EzMIvRMFzQ+I6lwL2u+OtIur+M4GTRba9RCGGvojo2mYDo9iqf+YAzs
+              86S1yQKBgQC4BMHlMw9dd9tmbHZVSIWnoZOYsPiQ8Uuerd4oSh5/w6U3ZZsDNv0S
+              Ysqz/bFu22Ov4xb4PlNf/e+7Yx7rFIpTEFpphLxmt99aeebcPh0ShOzySr0y5YD/
+              fjauZEns0I511J9Unats0HX7CUGyVLVf0ZU9WatCGINYRAEs6/m8GA==
+              -----END RSA PRIVATE KEY-----
+            cert: |
+              -----BEGIN CERTIFICATE-----
+              MIIDQjCCAiqgAwIBAgIRAOciLjtHiiFIpTYuXpA8Mm4wDQYJKoZIhvcNAQELBQAw
+              ODEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MRAwDgYDVQQD
+              DAdib3NoX2NhMB4XDTE3MDcxOTIzMTAyN1oXDTE4MDcxOTIzMTAyN1owOTEMMAoG
+              A1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MREwDwYDVQQDEwgxMC4w
+              LjAuNjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKyrR/iTZhL+KLE2
+              cIchwS2riWkI5jQEub2AwnqehfQFKVt5C43A2BpPgcMha6S2uxApCDW2AfuYgRJG
+              wUStLETCM+a81FlO0L/xwOtPaxf8p20lEs5Nbr/X4EwtgVZ29n+y9Nx9cKprYIad
+              2ybyfy5zKnt8fjlRKZK9QOcal7MrIQ0lOrYHzPuLTcgQULnVwr9ycsiqAif3EKSw
+              jofZ0NMjuK9X6jT237mEn94hkX7hYOFYKLyyjqkYVsTcpBsXAdeP7htY8Tdb1/mI
+              NWmb1NO+WdNDOjQ3NIGmGnQwY8TRpI2Cs4nByNPxKE+qiZ0frRgc09IKtuK3Ms9i
+              4S7T+n8CAwEAAaNGMEQwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUF
+              BwMBMAwGA1UdEwEB/wQCMAAwDwYDVR0RBAgwBocECgAABjANBgkqhkiG9w0BAQsF
+              AAOCAQEAtjxMoW1duyeo32vMYLHqLU7VnomXYdlLMRCKV/J9pipGSfIum1SuYBOl
+              DTFi9pxjw03C4S+qSg13fIHIO3x2eQ2eDotC2QS+ORDgrFXCuxRZBWY7s3B1iLWs
+              AWA+G2D9KyNJfsiKwX8SfgOR2dA6ISDobvbCO56BmiOOZJaTMbF4JTsK57bBmUpk
+              0B+Z+fwGpVFBfIFnMIcIAkDk21eygHnhEB6DqPPMOP/i2VX+vv3HSUNygRgx7hUn
+              ztIPn8EfzDq0kTKmT55M8gmXvbzxXmRRBn5s88xqD3r1MW5KCpy/1EfGFJ3tPnv0
+              iwq5UxHGDhtvMynjcWqQhIjf7fdjrw==
+              -----END CERTIFICATE-----
            user_management:
              provider: local
              local:
@@ -398,7 +454,7 @@ Now you have the infrastructure ready to deploy a BOSH director.
 terminal multiplexer such as `tmux` or `screen`.
 
    ```
-   bosh-init deploy manifest.yml
+   bosh create-env manifest.yml
    ```
 
 1. Target your BOSH environment:
