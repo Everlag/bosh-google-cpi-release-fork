@@ -105,7 +105,7 @@ jobs:
     templates:
       - name: nats
         release: bosh
-      - name: postgres
+      - name: postgres-9.4
         release: bosh
       - name: powerdns
         release: bosh
@@ -166,21 +166,67 @@ jobs:
         port: 25777
 
       blobstore:
-        address: ${google_address_static_director}
-        port: 25250
-        provider: dav
-        director:
-          user: director
-          password: director-password
-        agent:
-          user: agent
-          password: agent-password
+        provider: gcs
+        bucket_name: bosh-gcs-blobstore-test-director_blobs
+        credentials_source: static
+        json_key: |
+          $(echo $google_json_key_data | tr -d '\n')
 
       director:
         address: 127.0.0.1
         name: micro-google
         db: *db
+        debug:
+          keep_unreachable_vms: true
         cpi_job: google_cpi
+        ssl:
+          key: |
+            -----BEGIN PRIVATE KEY-----
+            MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQeFoYJhAGBtwg
+            MNU5TwrRsyTfDM8UEJbYRHqMc+cPWMRUqmhz6Nliv/nPrb77/KNcViBtrRRD91zQ
+            L+dL3wNWR/FMzuXzB1MDy4UTHb09EjSDRT+W/bMlUheYF7lM12zVwYAUzv7NQZVd
+            Tm7aecWHNsA4mTCddMwAp7T5XcGd7nFIFUxcKpiwzGQvfp8I/dQ5H1IqUHnm7ON4
+            E9POwRw0pUeRBaK9Qr25SLv4h8SHE0cGcoeEw73vNQMmDB0hD3wUFbtquWXi5A7F
+            Dx9zRO8fr9d4QI7Zlh3qNG9cp3hrxtG9W8ot2qpDR2E9BUk/knm5gyc4m74FBPlX
+            9ZdMij2hAgMBAAECggEAK0YQTZr5EIc0AmqgmDjUIhtxt+tMwPmAlnwAhE8603C1
+            sG1/KTBYj6sSDA4g6uXSc0RdjuayojkixwRqmtE8PBjK+gqoqP4IOW1xvjoaIic5
+            R1aEkK8xFLops6SZDl5ZdTWphKhDNBA9FRVG5YsJebvfwt/pu4WXIzus0Wao3kNU
+            ivNkPdGUZidE4LCRFRt/HGnzCNazSZ/W72Db/pQtGXqWsqofSvhKHQjI8wCl3A8y
+            Gs7FWU+Trl6fQFGjLs+bPWxrx5/+Y5LfkT6qgi7RbqEhDn3YJkYXXGUfmjg8+E/Z
+            ttJALDo/ZPXjsKKKN3s02A5ux6ENk4NyEsxrVK+7AQKBgQD4/CBtTgF4KEftalaG
+            4ps5YtD4834Yfbl+KkwSs1ImaPdZgET/prNGrR6MGFeA0oNsx/h/AJW+NqDJtBIM
+            oTm112vvFw3RFVhEfkxOmndL555DkI9CvY5SPFEbk4qTk6UooeHwp5r78Hx/hkjo
+            yPfQF8C5kewYK6bdTehR/9s1+QKBgQDWWABT7g9+LTgBf0bsKNu2nTrdCcbJR7id
+            2QmNyEEzaYfWyGaTL2h0KYql+0Gi1fZ7luegVp9qRP5Aimxpdl+iUBb+whk28mfT
+            iFsrwmwq6DtvVHszy187HDpEN3bvOLCjozEn6ULZeBpuk1Do9/hLewIOF5jknYHV
+            d5nWtEaO6QKBgBrNkXQS1KeptmyBaQUmOc2IrLRQCf/68M/7H6tXsH1ACXiSDVt0
+            B5KRKlusdycAAnPgZwjM+FG8sbxk7Rh89qhzo0PeuHcMlC7zZaWEjVkXevsNAc8O
+            dta1dYnBbUaLu1jPbHIqqM18Svqzav/cOoklNXMEmWTUtibWry68m02JAoGBAKAq
+            qjQNVC5pA8y6mviln2jaHL5HK/AEVAQ/xk/YMECGvybUITIi3t7Om/hjxCw1zjWU
+            EglSMVVrsMHxrgkwl03mowhDaiwQ/1ymK9qLMeDuIFuUuWt+sO6urSuEdq9ToUrm
+            CzlTqMxwXu/5zSAJC9T7WhHFuE49FGO7N42ksIThAoGBALCg3FBLj+8m7FahO7T2
+            O7GUhUdtavRoMZNrJJpEqES9Z57BN4ToBBE9B+d/ZO2ry3DBek1DsvZ1zMTj/kHU
+            t6UNDfaqgi6hWQvJ6lA7sPfLUwBAZ9k4U4hv6Gp1kVE+jNKmb9QiRY5pxbjQ7lZq
+            PgKm6ag/pe+0FYobED0hR1ve
+            -----END PRIVATE KEY-----
+          cert: |
+            -----BEGIN CERTIFICATE-----
+            MIICsjCCAZoCCQDYQJGuufwE6jANBgkqhkiG9w0BAQsFADAbMQ0wCwYDVQQKDARC
+            b3NoMQowCAYDVQQDDAEqMB4XDTE3MDcwNjE3MDQ0NloXDTI3MDcwNDE3MDQ0Nlow
+            GzENMAsGA1UECgwEQm9zaDEKMAgGA1UEAwwBKjCCASIwDQYJKoZIhvcNAQEBBQAD
+            ggEPADCCAQoCggEBANB4WhgmEAYG3CAw1TlPCtGzJN8MzxQQlthEeoxz5w9YxFSq
+            aHPo2WK/+c+tvvv8o1xWIG2tFEP3XNAv50vfA1ZH8UzO5fMHUwPLhRMdvT0SNINF
+            P5b9syVSF5gXuUzXbNXBgBTO/s1BlV1Obtp5xYc2wDiZMJ10zACntPldwZ3ucUgV
+            TFwqmLDMZC9+nwj91DkfUipQeebs43gT087BHDSlR5EFor1CvblIu/iHxIcTRwZy
+            h4TDve81AyYMHSEPfBQVu2q5ZeLkDsUPH3NE7x+v13hAjtmWHeo0b1yneGvG0b1b
+            yi3aqkNHYT0FST+SebmDJzibvgUE+Vf1l0yKPaECAwEAATANBgkqhkiG9w0BAQsF
+            AAOCAQEAGuJCVwrdFsoTqWov5QgattUAD0kv/QJHIbXKwqUfpjETkTf2akDiw4HU
+            xoqcwYvmlg5eEwaGnNBh/kbJQapgTEaNQS47bX599sOIDqrVDY7lsEAaHeJsZ6Ux
+            pRq3Yis2eyFqXlqZhhzenXHbDrJ01ix7Fo7cFIh9fiocwdCPgKWGATInIWirx5Jz
+            hFbtZwj+HWRPWTlpx6QkRxSo5a7nwuhY+2SMUdPnw0iX8C3ra2qjkjE2peYD89FI
+            T4ZZHw0Hpp8SnrNtFFk1I1SgFcof9NrwbJYryftSS9xfb7VgH39xn00sRRb+hLcp
+            lWp3rha05LxtwOF344A24oxupH06DA==
+            -----END CERTIFICATE-----
         user_management:
           provider: local
           local:
