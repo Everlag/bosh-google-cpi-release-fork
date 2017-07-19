@@ -77,6 +77,8 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
   gcloud compute ssh bosh-bastion-concourse
   ```
 
+1. Install [bosh-cli V2](https://bosh.io/docs/cli-v2.html#install)
+
 1. Configure `gcloud` to use the correct zone, region, and project:
 
   ```
@@ -112,13 +114,6 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
 
   > **Important:** The username field should auto-populate the value `bosh` after you paste the public key. If it does not, be sure there are no newlines or carriage returns being pasted; the value you paste should be a single line.
 
-
-1. Confirm that `bosh-init` is installed by querying its version:
-
-  ```
-  bosh-init -v
-  ```
-
 1. Create and `cd` to a directory:
 
   ```
@@ -146,18 +141,18 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
 
   releases:
     - name: bosh
-      url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260.1
-      sha1: 7fb8e99e28b67df6604e97ef061c5425460518d3
+      url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=262.3
+      sha1: 31d2912d4320ce6079c190f2218c6053fd1e920f
     - name: bosh-google-cpi
-      url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.6.2
-      sha1: b4865397d867655fdcc112bc5a7f9a5025cdf311
+      url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.8.0
+      sha1: bb943b492c025903b6c4a833e2f836e5c1479bbc
 
   resource_pools:
     - name: vms
       network: private
       stemcell:
-        url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3312.12
-        sha1: 3a2c407be6c1b3d04bb292ceb5007159100c85d7
+        url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3421.11
+        sha1: e055682ebd86a2f48dc82bbc114c7de20b5a5393
       cloud_properties:
         zone: <%=zone %>
         machine_type: n1-standard-4
@@ -196,7 +191,7 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
       templates:
         - name: nats
           release: bosh
-        - name: postgres
+        - name: postgres-9.4
           release: bosh
         - name: powerdns
           release: bosh
@@ -255,6 +250,54 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
           name: micro-google
           db: *db
           cpi_job: google_cpi
+          ssl:
+            key: |
+              -----BEGIN PRIVATE KEY-----
+              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQeFoYJhAGBtwg
+              MNU5TwrRsyTfDM8UEJbYRHqMc+cPWMRUqmhz6Nliv/nPrb77/KNcViBtrRRD91zQ
+              L+dL3wNWR/FMzuXzB1MDy4UTHb09EjSDRT+W/bMlUheYF7lM12zVwYAUzv7NQZVd
+              Tm7aecWHNsA4mTCddMwAp7T5XcGd7nFIFUxcKpiwzGQvfp8I/dQ5H1IqUHnm7ON4
+              E9POwRw0pUeRBaK9Qr25SLv4h8SHE0cGcoeEw73vNQMmDB0hD3wUFbtquWXi5A7F
+              Dx9zRO8fr9d4QI7Zlh3qNG9cp3hrxtG9W8ot2qpDR2E9BUk/knm5gyc4m74FBPlX
+              9ZdMij2hAgMBAAECggEAK0YQTZr5EIc0AmqgmDjUIhtxt+tMwPmAlnwAhE8603C1
+              sG1/KTBYj6sSDA4g6uXSc0RdjuayojkixwRqmtE8PBjK+gqoqP4IOW1xvjoaIic5
+              R1aEkK8xFLops6SZDl5ZdTWphKhDNBA9FRVG5YsJebvfwt/pu4WXIzus0Wao3kNU
+              ivNkPdGUZidE4LCRFRt/HGnzCNazSZ/W72Db/pQtGXqWsqofSvhKHQjI8wCl3A8y
+              Gs7FWU+Trl6fQFGjLs+bPWxrx5/+Y5LfkT6qgi7RbqEhDn3YJkYXXGUfmjg8+E/Z
+              ttJALDo/ZPXjsKKKN3s02A5ux6ENk4NyEsxrVK+7AQKBgQD4/CBtTgF4KEftalaG
+              4ps5YtD4834Yfbl+KkwSs1ImaPdZgET/prNGrR6MGFeA0oNsx/h/AJW+NqDJtBIM
+              oTm112vvFw3RFVhEfkxOmndL555DkI9CvY5SPFEbk4qTk6UooeHwp5r78Hx/hkjo
+              yPfQF8C5kewYK6bdTehR/9s1+QKBgQDWWABT7g9+LTgBf0bsKNu2nTrdCcbJR7id
+              2QmNyEEzaYfWyGaTL2h0KYql+0Gi1fZ7luegVp9qRP5Aimxpdl+iUBb+whk28mfT
+              iFsrwmwq6DtvVHszy187HDpEN3bvOLCjozEn6ULZeBpuk1Do9/hLewIOF5jknYHV
+              d5nWtEaO6QKBgBrNkXQS1KeptmyBaQUmOc2IrLRQCf/68M/7H6tXsH1ACXiSDVt0
+              B5KRKlusdycAAnPgZwjM+FG8sbxk7Rh89qhzo0PeuHcMlC7zZaWEjVkXevsNAc8O
+              dta1dYnBbUaLu1jPbHIqqM18Svqzav/cOoklNXMEmWTUtibWry68m02JAoGBAKAq
+              qjQNVC5pA8y6mviln2jaHL5HK/AEVAQ/xk/YMECGvybUITIi3t7Om/hjxCw1zjWU
+              EglSMVVrsMHxrgkwl03mowhDaiwQ/1ymK9qLMeDuIFuUuWt+sO6urSuEdq9ToUrm
+              CzlTqMxwXu/5zSAJC9T7WhHFuE49FGO7N42ksIThAoGBALCg3FBLj+8m7FahO7T2
+              O7GUhUdtavRoMZNrJJpEqES9Z57BN4ToBBE9B+d/ZO2ry3DBek1DsvZ1zMTj/kHU
+              t6UNDfaqgi6hWQvJ6lA7sPfLUwBAZ9k4U4hv6Gp1kVE+jNKmb9QiRY5pxbjQ7lZq
+              PgKm6ag/pe+0FYobED0hR1ve
+              -----END PRIVATE KEY-----
+            cert: |
+              -----BEGIN CERTIFICATE-----
+              MIICsjCCAZoCCQDYQJGuufwE6jANBgkqhkiG9w0BAQsFADAbMQ0wCwYDVQQKDARC
+              b3NoMQowCAYDVQQDDAEqMB4XDTE3MDcwNjE3MDQ0NloXDTI3MDcwNDE3MDQ0Nlow
+              GzENMAsGA1UECgwEQm9zaDEKMAgGA1UEAwwBKjCCASIwDQYJKoZIhvcNAQEBBQAD
+              ggEPADCCAQoCggEBANB4WhgmEAYG3CAw1TlPCtGzJN8MzxQQlthEeoxz5w9YxFSq
+              aHPo2WK/+c+tvvv8o1xWIG2tFEP3XNAv50vfA1ZH8UzO5fMHUwPLhRMdvT0SNINF
+              P5b9syVSF5gXuUzXbNXBgBTO/s1BlV1Obtp5xYc2wDiZMJ10zACntPldwZ3ucUgV
+              TFwqmLDMZC9+nwj91DkfUipQeebs43gT087BHDSlR5EFor1CvblIu/iHxIcTRwZy
+              h4TDve81AyYMHSEPfBQVu2q5ZeLkDsUPH3NE7x+v13hAjtmWHeo0b1yneGvG0b1b
+              yi3aqkNHYT0FST+SebmDJzibvgUE+Vf1l0yKPaECAwEAATANBgkqhkiG9w0BAQsF
+              AAOCAQEAGuJCVwrdFsoTqWov5QgattUAD0kv/QJHIbXKwqUfpjETkTf2akDiw4HU
+              xoqcwYvmlg5eEwaGnNBh/kbJQapgTEaNQS47bX599sOIDqrVDY7lsEAaHeJsZ6Ux
+              pRq3Yis2eyFqXlqZhhzenXHbDrJ01ix7Fo7cFIh9fiocwdCPgKWGATInIWirx5Jz
+              hFbtZwj+HWRPWTlpx6QkRxSo5a7nwuhY+2SMUdPnw0iX8C3ra2qjkjE2peYD89FI
+              T4ZZHw0Hpp8SnrNtFFk1I1SgFcof9NrwbJYryftSS9xfb7VgH39xn00sRRb+hLcp
+              lWp3rha05LxtwOF344A24oxupH06DA==
+              -----END CERTIFICATE-----
           user_management:
             provider: local
             local:
@@ -289,12 +332,6 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
       name: google_cpi
       release: bosh-google-cpi
 
-    ssh_tunnel:
-      host: 10.0.0.6
-      port: 22
-      user: bosh
-      private_key: <%=ssh_key_path %>
-
     mbus: https://mbus:mbus-password@10.0.0.6:6868
 
     properties:
@@ -304,6 +341,16 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
       ntp: *ntp
   ```
 
+1. Confirm that `bosh` is installed by querying its version:
+
+  ```
+  bosh -v # == 2.x.y
+  ```
+
+  This is using the updated bosh-cli V2. When viewing docs written against
+  the V1 CLI or bosh-init, use [this reference](https://bosh.io/docs/cli-v2-diff.html)
+  to translate between commands.
+
 1. Fill in the template values of the manifest with your environment variables:
   ```
   erb manifest.yml.erb > manifest.yml
@@ -312,13 +359,15 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
 1. Deploy the new manifest to create a BOSH Director:
 
   ```
-  bosh-init deploy manifest.yml
+  bosh create-env manifest.yml
   ```
 
-1. Target your BOSH environment:
+1. Download [cert.pem](cert.pem) from this repository.
+
+1. Create an alias for your BOSH environment:
 
   ```
-  bosh target 10.0.0.6
+  bosh alias-env concourse-env --environment 10.0.0.6 --ca-cert cert.pem
   ```
 
 Your username is `admin` and password is `admin`.
@@ -329,14 +378,14 @@ Complete the following steps from your bastion instance.
 1. Upload the required [Google BOSH Stemcell](http://bosh.io/docs/stemcell.html):
 
   ```
-  bosh upload stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3263.8
+  bosh -e concourse-env upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3421.11
   ```
 
 1. Upload the required [BOSH Releases](http://bosh.io/docs/release.html):
 
   ```
-  bosh upload release https://bosh.io/d/github.com/concourse/concourse?v=2.5.0
-  bosh upload release https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.0.3
+  bosh -e concourse-env upload-stemcell https://bosh.io/d/github.com/concourse/concourse?v=2.7.6
+  bosh -e concourse-env upload-stemcell https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0
   ```
 
 1. Download the [cloud-config.yml](cloud-config.yml) manifest file.
@@ -362,6 +411,15 @@ Complete the following steps from your bastion instance.
   tls_cert: << SSL Cert for HTTPS >>
   tls_key: << SSL Private Key >>
   ```
+
+  Self-signed credentials can be generated using
+  ```
+  openssl ecparam -genkey -name prime256v1 -out key.pem
+  openssl req -new -sha256 -key key.pem -out csr.csr
+  openssl req -x509 -sha256 -days 365 -key key.pem -in csr.csr -out certificate.pem
+  ```
+
+  TODO: mention external change
 
 1. Upload the cloud config:
 
