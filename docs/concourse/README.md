@@ -252,51 +252,27 @@ This guide describes how to deploy [Concourse](http://concourse.ci/) on [Google 
           cpi_job: google_cpi
           ssl:
             key: |
-              -----BEGIN PRIVATE KEY-----
-              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQeFoYJhAGBtwg
-              MNU5TwrRsyTfDM8UEJbYRHqMc+cPWMRUqmhz6Nliv/nPrb77/KNcViBtrRRD91zQ
-              L+dL3wNWR/FMzuXzB1MDy4UTHb09EjSDRT+W/bMlUheYF7lM12zVwYAUzv7NQZVd
-              Tm7aecWHNsA4mTCddMwAp7T5XcGd7nFIFUxcKpiwzGQvfp8I/dQ5H1IqUHnm7ON4
-              E9POwRw0pUeRBaK9Qr25SLv4h8SHE0cGcoeEw73vNQMmDB0hD3wUFbtquWXi5A7F
-              Dx9zRO8fr9d4QI7Zlh3qNG9cp3hrxtG9W8ot2qpDR2E9BUk/knm5gyc4m74FBPlX
-              9ZdMij2hAgMBAAECggEAK0YQTZr5EIc0AmqgmDjUIhtxt+tMwPmAlnwAhE8603C1
-              sG1/KTBYj6sSDA4g6uXSc0RdjuayojkixwRqmtE8PBjK+gqoqP4IOW1xvjoaIic5
-              R1aEkK8xFLops6SZDl5ZdTWphKhDNBA9FRVG5YsJebvfwt/pu4WXIzus0Wao3kNU
-              ivNkPdGUZidE4LCRFRt/HGnzCNazSZ/W72Db/pQtGXqWsqofSvhKHQjI8wCl3A8y
-              Gs7FWU+Trl6fQFGjLs+bPWxrx5/+Y5LfkT6qgi7RbqEhDn3YJkYXXGUfmjg8+E/Z
-              ttJALDo/ZPXjsKKKN3s02A5ux6ENk4NyEsxrVK+7AQKBgQD4/CBtTgF4KEftalaG
-              4ps5YtD4834Yfbl+KkwSs1ImaPdZgET/prNGrR6MGFeA0oNsx/h/AJW+NqDJtBIM
-              oTm112vvFw3RFVhEfkxOmndL555DkI9CvY5SPFEbk4qTk6UooeHwp5r78Hx/hkjo
-              yPfQF8C5kewYK6bdTehR/9s1+QKBgQDWWABT7g9+LTgBf0bsKNu2nTrdCcbJR7id
-              2QmNyEEzaYfWyGaTL2h0KYql+0Gi1fZ7luegVp9qRP5Aimxpdl+iUBb+whk28mfT
-              iFsrwmwq6DtvVHszy187HDpEN3bvOLCjozEn6ULZeBpuk1Do9/hLewIOF5jknYHV
-              d5nWtEaO6QKBgBrNkXQS1KeptmyBaQUmOc2IrLRQCf/68M/7H6tXsH1ACXiSDVt0
-              B5KRKlusdycAAnPgZwjM+FG8sbxk7Rh89qhzo0PeuHcMlC7zZaWEjVkXevsNAc8O
-              dta1dYnBbUaLu1jPbHIqqM18Svqzav/cOoklNXMEmWTUtibWry68m02JAoGBAKAq
-              qjQNVC5pA8y6mviln2jaHL5HK/AEVAQ/xk/YMECGvybUITIi3t7Om/hjxCw1zjWU
-              EglSMVVrsMHxrgkwl03mowhDaiwQ/1ymK9qLMeDuIFuUuWt+sO6urSuEdq9ToUrm
-              CzlTqMxwXu/5zSAJC9T7WhHFuE49FGO7N42ksIThAoGBALCg3FBLj+8m7FahO7T2
-              O7GUhUdtavRoMZNrJJpEqES9Z57BN4ToBBE9B+d/ZO2ry3DBek1DsvZ1zMTj/kHU
-              t6UNDfaqgi6hWQvJ6lA7sPfLUwBAZ9k4U4hv6Gp1kVE+jNKmb9QiRY5pxbjQ7lZq
-              PgKm6ag/pe+0FYobED0hR1ve
-              -----END PRIVATE KEY-----
+              -----BEGIN EC PARAMETERS-----
+              BggqhkjOPQMBBw==
+              -----END EC PARAMETERS-----
+              -----BEGIN EC PRIVATE KEY-----
+              MHcCAQEEIFTa2BiKaUKEHWkNLGpWvzCUvoVbO9FI8omOyOSJB0RboAoGCCqGSM49
+              AwEHoUQDQgAE5iS6HfZCFh2tUfg/16cMjib1WyBPsRu2BMqUBohxoZET0GfOcFcL
+              JKfYLEZi+WD4Dulyy1m/eDu6HuUH8+FWqA==
+              -----END EC PRIVATE KEY-----
             cert: |
               -----BEGIN CERTIFICATE-----
-              MIICsjCCAZoCCQDYQJGuufwE6jANBgkqhkiG9w0BAQsFADAbMQ0wCwYDVQQKDARC
-              b3NoMQowCAYDVQQDDAEqMB4XDTE3MDcwNjE3MDQ0NloXDTI3MDcwNDE3MDQ0Nlow
-              GzENMAsGA1UECgwEQm9zaDEKMAgGA1UEAwwBKjCCASIwDQYJKoZIhvcNAQEBBQAD
-              ggEPADCCAQoCggEBANB4WhgmEAYG3CAw1TlPCtGzJN8MzxQQlthEeoxz5w9YxFSq
-              aHPo2WK/+c+tvvv8o1xWIG2tFEP3XNAv50vfA1ZH8UzO5fMHUwPLhRMdvT0SNINF
-              P5b9syVSF5gXuUzXbNXBgBTO/s1BlV1Obtp5xYc2wDiZMJ10zACntPldwZ3ucUgV
-              TFwqmLDMZC9+nwj91DkfUipQeebs43gT087BHDSlR5EFor1CvblIu/iHxIcTRwZy
-              h4TDve81AyYMHSEPfBQVu2q5ZeLkDsUPH3NE7x+v13hAjtmWHeo0b1yneGvG0b1b
-              yi3aqkNHYT0FST+SebmDJzibvgUE+Vf1l0yKPaECAwEAATANBgkqhkiG9w0BAQsF
-              AAOCAQEAGuJCVwrdFsoTqWov5QgattUAD0kv/QJHIbXKwqUfpjETkTf2akDiw4HU
-              xoqcwYvmlg5eEwaGnNBh/kbJQapgTEaNQS47bX599sOIDqrVDY7lsEAaHeJsZ6Ux
-              pRq3Yis2eyFqXlqZhhzenXHbDrJ01ix7Fo7cFIh9fiocwdCPgKWGATInIWirx5Jz
-              hFbtZwj+HWRPWTlpx6QkRxSo5a7nwuhY+2SMUdPnw0iX8C3ra2qjkjE2peYD89FI
-              T4ZZHw0Hpp8SnrNtFFk1I1SgFcof9NrwbJYryftSS9xfb7VgH39xn00sRRb+hLcp
-              lWp3rha05LxtwOF344A24oxupH06DA==
+              MIIB4TCCAYigAwIBAgIJANUkEjFsA6EiMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT
+              AkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRn
+              aXRzIFB0eSBMdGQwHhcNMTcwNzE5MjA0NDU4WhcNMjAwNTA4MjA0NDU4WjBFMQsw
+              CQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJu
+              ZXQgV2lkZ2l0cyBQdHkgTHRkMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5iS6
+              HfZCFh2tUfg/16cMjib1WyBPsRu2BMqUBohxoZET0GfOcFcLJKfYLEZi+WD4Duly
+              y1m/eDu6HuUH8+FWqKNhMF8wHQYDVR0OBBYEFH09+ToXsipFFglNsBPFei3SmEdX
+              MB8GA1UdIwQYMBaAFH09+ToXsipFFglNsBPFei3SmEdXMAwGA1UdEwQFMAMBAf8w
+              DwYDVR0RBAgwBocECgAABjAKBggqhkjOPQQDAgNHADBEAiB7Cq0EM86/JaSsYcNO
+              TyWqsxGJZG9PGkRhu+5w/sGuGgIgLqHdjrrXKPMUBb5e7Vp8Q8pPf2NraoHYqkRI
+              qQktWnw=
               -----END CERTIFICATE-----
           user_management:
             provider: local
@@ -397,7 +373,7 @@ Complete the following steps from your bastion instance.
   export director_uuid=`bosh status --uuid 2>/dev/null`
   ```
 
-1. Chose unique passwords for internal services and ATC and export them
+1. Choose unique passwords for internal services and ATC and export them
    ```
    export common_password=
    export atc_password=
@@ -412,24 +388,26 @@ Complete the following steps from your bastion instance.
   tls_key: << SSL Private Key >>
   ```
 
+  Modify `concourse.yml` to use an HTTPS url using sed:
+  ```
+  sed -i 's|external_url = "http://|external_url = "https://|g' concourse.yml
+  ```
+
   Self-signed credentials can be generated using
   ```
   openssl ecparam -genkey -name prime256v1 -out key.pem
   openssl req -new -sha256 -key key.pem -out csr.csr
-  openssl req -x509 -sha256 -days 365 -key key.pem -in csr.csr -out certificate.pem
+  openssl req -x509 -sha256 -days 1460 -key key.pem -in csr.csr -out certificate.pem
   ```
-
-  TODO: mention external change
 
 1. Upload the cloud config:
 
   ```
-  bosh update cloud-config cloud-config.yml
+  bosh -e concourse-env update-cloud-config cloud-config.yml
   ```
 
-1. Target the deployment file and deploy:
+1. Create the new deployment with the deployment file:
 
   ```
-  bosh deployment concourse.yml
-  bosh deploy
+  bosh --environment concourse-env --deployment concourse-deployment deploy concourse.yml
   ```
