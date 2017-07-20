@@ -167,7 +167,7 @@ Now you have the infrastructure ready to deploy a BOSH director.
 1. Create a service account. This service account will be used by BOSH and all VMs it creates:
 
    ```
-   export service_account=bosh-user
+   export service_account=bosh-director-deployment
    export base_ip=10.0.0.0
    export service_account_email=${service_account}@${project_id}.iam.gserviceaccount.com
    gcloud iam service-accounts create ${service_account}
@@ -199,7 +199,7 @@ Now you have the infrastructure ready to deploy a BOSH director.
 1. Create a **password-less** SSH key and upload the public component:
 
    ```
-   ssh-keygen -t rsa -f ~/.ssh/bosh -C bosh
+   ssh-keygen -t rsa -f ~/.ssh/bosh -C bosh-director-deployment
    ```
 
    ```
@@ -207,12 +207,10 @@ Now you have the infrastructure ready to deploy a BOSH director.
             sshKeys=<( gcloud compute project-info describe --format=json | jq -r '.commonInstanceMetadata.items[] | select(.key ==  "sshKeys") | .value' & echo "bosh:$(cat ~/.ssh/bosh.pub)" )
    ```
 
-1. Install [bosh-cli V2](https://bosh.io/docs/cli-v2.html#install)
-
-1. Confirm that `bosh` is installed by querying its version:
+1. Confirm that `bosh2` is installed by querying its version:
 
   ```
-  bosh -v # == 2.x.y
+  bosh2 -v # == 2.x.y
   ```
 
   This is using the updated bosh-cli V2. When viewing docs written against
@@ -231,7 +229,7 @@ Now you have the infrastructure ready to deploy a BOSH director.
    ```
    ---
    <%
-   ['zone', 'service_account_email', 'network', 'subnetwork', 'project_id', 'network_project_id', 'ssh_key_path', 'base_ip'].each do |val|
+   ['zone', 'service_account_email', 'network', 'subnetwork', 'project_id', 'network_project_id', 'base_ip'].each do |val|
      if ENV[val].nil? || ENV[val].empty?
        raise "Missing environment variable: #{val}"
      end
@@ -454,13 +452,16 @@ Now you have the infrastructure ready to deploy a BOSH director.
 terminal multiplexer such as `tmux` or `screen`.
 
    ```
-   bosh create-env manifest.yml
+   bosh2 create-env manifest.yml
    ```
 
-1. Target your BOSH environment:
+1. Download [ca_cert.pem](../ca_cert.pem) from this repository.
+
+1. Target your BOSH environment and login:
 
    ```
-   bosh target 10.0.0.6
+   bosh2 alias-env my-bosh-env --environment 10.0.0.6 --ca-cert ../ca_cert.pem
+   bosh2 login -e my-bosh-env
    ```
 
 Your username is `admin` and password is `admin`.
@@ -478,7 +479,7 @@ From your `bosh-bastion` instance, delete your BOSH director and other resources
    ```
    # Delete BOSH Director
    cd ~/google-bosh-director
-   bosh-init delete manifest.yml
+   bosh2 delete-env manifest.yml
 
    # Delete custom SSH key
    boshkey="bosh:$(cat ~/.ssh/bosh.pub)"
