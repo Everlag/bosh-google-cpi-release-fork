@@ -17,9 +17,9 @@ director: <%= director %>
 
 releases:
 - name: concourse
-  version: 2.5.0
+  version: 2.7.6
 - name: garden-runc
-  version: 1.0.3
+  version: 1.9.0
 
 instance_groups:
 - name: web
@@ -94,7 +94,7 @@ update:
   serial: false
   canary_watch_time: 1000-60000
   update_watch_time: 1000-60000
-  
+
 stemcells:
 - alias: trusty
   os: ubuntu-trusty

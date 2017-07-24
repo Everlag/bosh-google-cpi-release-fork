@@ -114,7 +114,6 @@ Complete the following steps from your bastion instance.
 1. Upload the cloud config:
 
   ```
-  SKIPPING
   bosh2 -e my-bosh-env update-cloud-config cloud-config.yml
   ```
 
@@ -123,3 +122,23 @@ Complete the following steps from your bastion instance.
   ```
   bosh2 --environment my-bosh-env --deployment concourse deploy manifest.yml
   ```
+
+### Delete resources
+
+From your `bosh-bastion` instance, delete your Concourse deployment:
+
+  ```
+  TODO: test
+  bosh2 -e my-bosh-env delete-deployment -d concourse
+  ```
+
+Then delete the infrastructure you created with terraform:
+  ```
+  cd /share/docs/concourse
+  terraform destroy \
+    -var network=${network} \
+    -var project_id=${project_id} \
+    -var region=${region}
+  ```
+
+**Important:** The BOSH bastion and director you created must also be destroyed. Follow the **Delete resources** instructions in the [Deploy BOSH on Google Cloud Platform](../bosh/README.md) guide.

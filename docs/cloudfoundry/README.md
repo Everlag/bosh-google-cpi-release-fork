@@ -172,7 +172,9 @@ Setup your tcp router domain using the CLI:
 From your `bosh-bastion` instance, delete your Cloud Foundry deployment:
 
   ```
-  bosh delete deployment cf
+
+  TODO: test
+  bosh2 -e my-bosh-env delete-deployment -d cf
   ```
 
 Then delete the infrastructure you created with terraform:
