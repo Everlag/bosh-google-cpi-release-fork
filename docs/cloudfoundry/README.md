@@ -95,45 +95,45 @@ The following instructions use [Terraform](terraform.io) to provision all of the
 
 1. Target and login into your BOSH environment:
 
-  ```
-  bosh2 alias-env my-bosh-env --environment 10.0.0.6 --ca-cert ../ca_cert.pem
-  bosh2 login -e my-bosh-env
-  ```
+   ```
+   bosh2 alias-env my-bosh-env --environment 10.0.0.6 --ca-cert ../ca_cert.pem
+   bosh2 login -e my-bosh-env
+   ```
 
-  > **Note:** Your username is `admin` and password is `admin`.
+   > **Note:** Your username is `admin` and password is `admin`.
 
 1. Retrieve the outputs of your Terraform run to be used in your Cloud Foundry deployment:
 
-  ```
-  export vip=$(terraform output ip)
-  export tcp_vip=$(terraform output tcp_ip)
-  export zone=$(terraform output zone)
-  export zone_compilation=$(terraform output zone_compilation)
-  export region=$(terraform output region)
-  export region_compilation=$(terraform output region_compilation)
-  export private_subnet=$(terraform output private_subnet)
-  export compilation_subnet=$(terraform output compilation_subnet)
-  export network=$(terraform output network)
-
-  export director=$(bosh2 env -e my-bosh-env | sed -n 2p)
-  ```
+    ```
+    export vip=$(terraform output ip)
+    export tcp_vip=$(terraform output tcp_ip)
+    export zone=$(terraform output zone)
+    export zone_compilation=$(terraform output zone_compilation)
+    export region=$(terraform output region)
+    export region_compilation=$(terraform output region_compilation)
+    export private_subnet=$(terraform output private_subnet)
+    export compilation_subnet=$(terraform output compilation_subnet)
+    export network=$(terraform output network)
+ 
+    export director=$(bosh2 env -e my-bosh-env | sed -n 2p)
+    ```
 
 1. Upload the stemcell:
 
-  ```
-  bosh2 upload-stemcell -e my-bosh-env https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3312.15
-  ```
+   ```
+   bosh2 upload-stemcell -e my-bosh-env https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3312.15
+   ```
 
 1. Upload the required [BOSH Releases](http://bosh.io/docs/release.html):
 
-  ```
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry/cf-mysql-release?v=23
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release?v=0.340.0
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release?v=43
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/diego-release?v=0.1463.0
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry/cf-release?v=249
-  bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release?v=0.142.0
-  ```
+   ```
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry/cf-mysql-release?v=23
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release?v=0.340.0
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release?v=43
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/diego-release?v=0.1463.0
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry/cf-release?v=249
+   bosh2 upload-release -e my-bosh-env  https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release?v=0.142.0
+   ```
 
 1. Use `erb` to substitute variables in the template:
 
@@ -143,9 +143,9 @@ The following instructions use [Terraform](terraform.io) to provision all of the
 
 1. Target the deployment file and deploy:
 
-  ```
-  bosh2 -e my-bosh-env deploy -d cf manifest.yml
-  ```
+   ```
+   bosh2 -e my-bosh-env deploy -d cf manifest.yml
+   ```
 
 > **Note:** If package compilation fails, consider disabling VM preemption in
 `manifest.yml.erb` under `compilation/cloud_properties/preemptible`
