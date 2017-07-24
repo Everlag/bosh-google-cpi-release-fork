@@ -1,13 +1,50 @@
+variable "project_id" {
+    type = "string"
+    default = "REPLACE-WITH-YOUR-GOOGLE-PROJECT-ID"
+}
+
+variable "region" {
+    type = "string"
+    default = "us-east1"
+}
+
+variable "zone-1" {
+    type = "string"
+    default = "us-east1-d"
+}
+
+variable "zone-2" {
+    type = "string"
+    default = "us-east1-b"
+}
+
+variable "name" {
+    type = "string"
+    default = "concourse"
+}
+
+provider "google" {
+    credentials = ""
+    project = "${var.project_id}"
+    region = "${var.region}"
+}
+
+resource "google_compute_network" "network" {
+  name = "${var.name}"
+}
+
 resource "google_compute_subnetwork" "concourse-public-subnet-1" {
   name          = "concourse-public-${var.region}-1"
   ip_cidr_range = "10.150.0.0/16"
-  network       = "${google_compute_network.network.self_link}"
+  network       = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/networks/${var.name}"
+  # network       = "${google_compute_network.network.self_link}"
 }
 
 resource "google_compute_subnetwork" "concourse-public-subnet-2" {
   name          = "concourse-public-${var.region}-2"
   ip_cidr_range = "10.160.0.0/16"
-  network       = "${google_compute_network.network.self_link}"
+  network       = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/networks/${var.name}"
+  # network       = "${google_compute_network.network.self_link}"
 }
 
 resource "google_compute_firewall" "concourse-public" {
