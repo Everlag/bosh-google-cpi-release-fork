@@ -144,8 +144,12 @@ The following instructions use [Terraform](terraform.io) to provision all of the
 1. Target the deployment file and deploy:
 
   ```
-  bosh2 -e my-bosh-env deploy -d cf  manifest.yml
+  bosh2 -e my-bosh-env deploy -d cf manifest.yml
   ```
+
+> **Note:** If package compilation fails, consider disabling VM preemption in
+`manifest.yml.erb` under `compilation/cloud_properties/preemptible`
+
 
 Once deployed, you can target your Cloud Foundry environment using the [CF CLI](http://docs.cloudfoundry.org/cf-cli/):
 
