@@ -32,18 +32,20 @@ Complete the following steps from your bastion instance.
 
     ```
     terraform plan \
-      -var network=${network} \
-      -var project_id=${project_id} \
-      -var region=${region}
+      -var project_id=${project_id}\
+      -var region=${region} \
+      -var zone-1=${zone} \
+      -var zone-2=${zone2}
     ```
 
 1. Create the resources:
 
     ```
     terraform apply \
-      -var network=${network} \
-      -var project_id=${project_id} \
-      -var region=${region}
+      -var project_id=${project_id}\
+      -var region=${region} \
+      -var zone-1=${zone} \
+      -var zone-2=${zone2}
     ```
 
 1. Target and login into your BOSH environment:
