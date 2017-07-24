@@ -487,7 +487,7 @@ From your `bosh-bastion` instance, delete your BOSH director and other resources
           sshKeys=<( gcloud compute project-info describe --format=json | jq -r '.commonInstanceMetadata.items[] | select(.key ==  "sshKeys") | .value' | sed -e "s|$boshkey||" | grep -v ^$ )
 
    # Delete IAM service account
-   gcloud iam service-accounts delete bosh-user@${project_id}.iam.gserviceaccount.com
+   gcloud iam service-accounts delete bosh-director-deployment@${project_id}.iam.gserviceaccount.com
    ```
 
 From your Cloud Shell instance, run the following command to delete the infrastructure you created in this lab:

@@ -171,21 +171,19 @@ Setup your tcp router domain using the CLI:
 
 From your `bosh-bastion` instance, delete your Cloud Foundry deployment:
 
-  ```
-
-  TODO: test
-  bosh2 -e my-bosh-env delete-deployment -d cf
-  ```
+```
+bosh2 -e my-bosh-env delete-deployment -d cf
+```
 
 Then delete the infrastructure you created with terraform:
-  ```
-  cd /share/docs/cloudfoundry
-  terraform destroy \
+```
+cd /share/docs/cloudfoundry
+terraform destroy \
     -var project_id=${project_id} \
     -var network_project_id=${network_project_id} \
     -var region=${region} \
     -var zone=${zone} \
     -var network=${network}
-  ```
+```
 
 **Important:** The BOSH bastion and director you created must also be destroyed. Follow the **Delete resources** instructions in the [Deploy BOSH on Google Cloud Platform](../bosh/README.md) guide.
